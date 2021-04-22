@@ -1,4 +1,5 @@
 # Team-Profile-Generator
+
 Node CLI that takes in information about employees and generates an HTML webpage that displays summaries for each person.
 
 ## User Story
@@ -13,3 +14,4 @@ The project must prompt the user to build an engineering team. An engineering
 team consists of a manager, and any number of engineers and interns.
 
 ## Link
+
