@@ -49,7 +49,7 @@ const newStaffMemberData = [];
                         response.name,
                         response.id,
                         response.email,
-                        response.officeNumber
+                        response.office
                     );
                     newStaffMemberData.push(newManager);
                     console.log(newStaffMemberData)
@@ -114,6 +114,85 @@ const newStaffMemberData = [];
     //             newStaffMemberData.push(newIntern);
     //         }
     //     };
+        function createIntern() {
+            inquirer.prompt([
+                {
+                    type: "input",
+                    message: "What university did you attend?",
+                    name: "school",
+                },
+                {
+                    type: "input",
+                    message: "What is your name?",
+                    name: "name",
+        
+                },
+                {
+                    type: "input",
+                    message: "What is your ID number?",
+                    name: "id",
+                },
+                {
+                    type: "input",
+                    message: "What is your email?",
+                    name: "email",
+                }
+    
+            ]).then(answers=>{
+                  const newEngineer = new Engineer (
+                answers.name,
+                answers.email,
+                answers.id,
+                answers.school
+                );
+                newStaffMemberData.push(newEngineer);
+                promptQuestions()
+            })
+         
+           
+        }
+
+
+        function createEngineer() {
+            inquirer.prompt([
+                {
+                                type: "input",
+                                message: "What is your Github username?",
+                                name: "github",
+                            },
+                {
+                    type: "input",
+                    message: "What is your name?",
+                    name: "name",
+        
+                },
+                {
+                    type: "input",
+                    message: "What is your ID number?",
+                    name: "id",
+                },
+                {
+                    type: "input",
+                    message: "What is your email?",
+                    name: "email",
+                }
+    
+            ]).then(answers=>{
+                  const newIntern = new Intern (
+                answers.name,
+                answers.email,
+                answers.id,
+                answers.github
+                );
+                newStaffMemberData.push(newIntern);
+                promptQuestions()
+            })
+         
+           
+        }
+
+
+
         function promptQuestions() {
            
             inquirer.prompt([
@@ -126,16 +205,18 @@ const newStaffMemberData = [];
             ]).then(response=>{
                 console.log(response.addMember)
 
-                // if (response.addMember === "Add an intern") {
-
-              //  } if (response.addMember === "Add an engineer") {
+                if (response.addMember === "Add an intern") {
+                    createIntern()
+               } else if (response.addMember === "Add an engineer") {
                     // makeEngineer --> aske questions for engineer and create
                     // call promptQuestion()
                     // call a function to ask inquirer.prompt (...).then (make engineer , then call promptquestions)
-            //  } else {
-             //     build team
-                    // call function to write file
-           //   }
+                    createEngineer()
+             } else {
+                //  build team
+                //     call function to write file
+                createTeam()
+             }
             })
 
             // if (addMemberAns.addMember === "Add a new member") {
@@ -152,20 +233,21 @@ const newStaffMemberData = [];
             function createTeam() {
                 console.log("new guy", newStaffMemberData)
                 fs.writeFileSync(
-                    "./output/index.html",
-                    generateTeam(newStaffMemberData),
+                    "./output/team.html",
+                    render(newStaffMemberData),
                     "utf-8"
                 );
             }
 
-            // function writeHTMLFile(html){
-            //     // Creates the HTML file that will display the information gathered in the app on a web page.
-            //     fs.writeFile(outputPath, html, function(error) {
-            //         // If function should fail returns an error in the console log
-            //         if(error){ return console.log(error); }
-            //         // Returns a message in the console log confirmint the file was successfully created.
-            //         console.log('Your team.html has been created!');
+            function writeHTMLFile(html){
+                // Creates the HTML file that will display the information gathered in the app on a web page.
+                fs.writeFile(outputPath, html, function(error) {
+                    // If function should fail returns an error in the console log
+                    if(error){ return console.log(error); }
+                    // Returns a message in the console log confirmint the file was successfully created.
+                    console.log('Your team.html has been created!');
 
-            //     })
-            // }
+                })
+            }
+        
         
